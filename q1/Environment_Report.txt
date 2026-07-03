@@ -1,0 +1,38 @@
+Question 1 - Environment Verification Report
+========================================
+
+1. Username and groups
+Command: whoami && groups
+Output:
+codespace
+codespace pipx python oryx golang docker sdkman rvm php conda nvs nvm hugo ssh
+Observation: The active account is codespace and it belongs to several system and development-related groups.
+
+2. Current shell
+Command: echo "$SHELL"
+Output:
+/bin/bash
+Observation: The current login shell is /bin/bash.
+
+3. Current working directory
+Command: pwd
+Output:
+/workspaces/Sg1/q1
+Observation: The shell is currently operating inside the q1 folder of the workspace.
+
+4. Files and directories in workspace
+Command: ls -ls /workspaces/Sg1
+Output:
+README.md
+q1
+q2
+q3
+q4
+q5
+Observation: The workspace contains the main repository files and the five question folders.
+
+5. Network connectivity verification
+Command: curl -s --max-time 10 https://google.com > /dev/null && echo "Network: google.com reachable"
+Output:
+Network: google.com reachable
+Observation: Network connectivity is available from the environment.
