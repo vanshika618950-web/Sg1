@@ -1,0 +1,36 @@
+Question 5 - Storage Health Assessment Report
+============================================
+
+1. Available storage devices
+Command: lsblk
+Output:
+Several block devices were listed, including sda, sdb, sdc, and loop devices.
+Observation: The environment contains both physical disk devices and loop-backed devices.
+
+2. Mounted file systems
+Command: mount | head -n 12
+Output:
+The system shows overlay, proc, tmpfs, devpts, sysfs, cgroup, and various mounted filesystems.
+Observation: The container uses overlay and temporary filesystems for its runtime environment.
+
+3. Disk usage statistics
+Command: df -h
+Output:
+Filesystem      Size  Used Avail Use%
+overlay          32G  9.6G   21G  33%
+/dev/root        29G   23G  6.2G  79%
+/dev/sda1        44G  2.6G   40G   7%
+Observation: The main root filesystem has roughly 6.2G free space available.
+
+4. Inode utilization
+Command: df -i
+Output:
+/dev/root      3870720 239781 3630939    7%
+Observation: The inode usage is low, so the system is not currently facing inode exhaustion.
+
+5. Storage health observations
+Observation: Storage capacity and inode availability appear healthy overall, with enough free space for normal use.
+
+6. Recommendations
+Observation: To improve storage utilization, remove unnecessary temporary files, archive older logs, and monitor disk usage regularly as the system grows.
+

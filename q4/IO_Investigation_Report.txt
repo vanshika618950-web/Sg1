@@ -1,0 +1,44 @@
+Question 4 - File Access and I/O Investigation Report
+====================================================
+
+1. Open files identified
+Command: lsof -p $$
+Output:
+The shell process shows file descriptor 3 opened for app.log.
+Observation: The file descriptor mapping confirms that the application log file was opened for reading.
+
+2. File descriptor observations
+Command: ls -l /proc/$$/fd
+Output:
+0 -> /dev/pts/5
+1 -> /dev/pts/5
+2 -> /dev/pts/5
+3 -> /workspaces/Sg1/q4/app.log
+Observation: File descriptors 0, 1, and 2 are the standard streams, and descriptor 3 points to the log file.
+
+3. Output redirection results
+Command: ls -l > stdout.txt
+Output:
+stdout.txt created with the directory listing from the ls command.
+Observation: Standard output was redirected from the terminal to a file.
+
+4. Error redirection results
+Command: ls /not_a_real_path 2> stderr.txt
+Output:
+stderr.txt contains the error message from the failed command.
+Observation: Standard error was redirected to a separate file.
+
+5. Combined redirection results
+Command: (ls -l && ls /not_a_real_path) > combined.txt 2>&1
+Output:
+combined.txt contains both the listing and the error message.
+Observation: This shows how standard output and standard error can be merged into one file.
+
+6. Resource limits observed
+Command: ulimit -a
+Output:
+open files (-n) 524288
+Observation: The shell allows a large number of open file descriptors, which is suitable for many concurrent tasks.
+
+7. Explanation of file I/O handling
+Observation: Linux manages file I/O through file descriptors, where each open file is referenced by an integer handle. The shell and processes use these descriptors to read from or write to files, terminals, pipes, and other streams.

@@ -1,0 +1,50 @@
+Question 2 - Secure Project Workspace Setup Report
+=================================================
+
+1. Directory structure created
+Command: mkdir -p secure_workspace/{docs,src,logs}
+Output:
+Created directories: secure_workspace/docs, secure_workspace/src, secure_workspace/logs
+Observation: A structured workspace was created for project documentation, source files, and logs.
+
+2. Permissions before modification
+Command: stat -c '%n %a %U:%G' secure_workspace secure_workspace/docs secure_workspace/src secure_workspace/logs secure_workspace/docs/plan.txt secure_workspace/src/app.txt secure_workspace/logs/activity.log
+Output:
+secure_workspace 777 codespace:codespace
+secure_workspace/docs 777 codespace:codespace
+secure_workspace/src 777 codespace:codespace
+secure_workspace/logs 777 codespace:codespace
+secure_workspace/docs/plan.txt 666 codespace:codespace
+secure_workspace/src/app.txt 666 codespace:codespace
+secure_workspace/logs/activity.log 666 codespace:codespace
+Observation: The newly created files and directories initially had very open permissions.
+
+3. Permissions after modification
+Command: chmod 750 secure_workspace && chmod 750 secure_workspace/docs secure_workspace/src secure_workspace/logs && chmod 640 secure_workspace/docs/plan.txt secure_workspace/src/app.txt secure_workspace/logs/activity.log
+Output:
+secure_workspace 750 codespace:codespace
+secure_workspace/docs 750 codespace:codespace
+secure_workspace/src 750 codespace:codespace
+secure_workspace/logs 750 codespace:codespace
+secure_workspace/docs/plan.txt 640 codespace:codespace
+secure_workspace/src/app.txt 640 codespace:codespace
+secure_workspace/logs/activity.log 640 codespace:codespace
+Observation: The workspace access was tightened so only the owner has broad access and group/others have limited access.
+
+4. Ownership details
+Command: stat -c '%n %U:%G' secure_workspace secure_workspace/docs secure_workspace/src secure_workspace/logs
+Output:
+secure_workspace codespace:codespace
+secure_workspace/docs codespace:codespace
+secure_workspace/src codespace:codespace
+secure_workspace/logs codespace:codespace
+Observation: All directories and files are owned by the current user, codespace.
+
+5. Umask value used
+Command: umask
+Output:
+0022
+Observation: The default umask is 0022, which results in files being created with 644 permissions and directories with 755 unless manually changed.
+
+6. Explanation of protection
+Observation: Restricting directories to 750 and files to 640 helps protect project data by preventing unauthorized users from reading or modifying sensitive project information.

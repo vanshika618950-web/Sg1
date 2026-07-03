@@ -1,0 +1,33 @@
+Question 3 - File System and Link Analysis Report
+=================================================
+
+1. Inode numbers of all files
+Command: ls -li original.txt hardlink.txt symlink.txt
+Output:
+1310804 -rw-rw-rw- 2 codespace codespace 21 Jul  3 19:02 hardlink.txt
+1310804 -rw-rw-rw- 2 codespace codespace 21 Jul  3 19:02 original.txt
+1310807 lrwxrwxrwx 1 codespace codespace 12 Jul  3 19:02 symlink.txt -> original.txt
+Observation: The original file and hard link share inode 1310804, while the symbolic link has a different inode.
+
+2. Comparison between hard and symbolic links
+Command: stat original.txt hardlink.txt symlink.txt
+Output:
+original.txt and hardlink.txt: same inode, links count 2
+symlink.txt: separate inode, type symbolic link
+Observation: A hard link is another name for the same inode, while a symbolic link points to a path.
+
+3. Effect of deleting the original file
+Command: rm -f original.txt && ls -li hardlink.txt symlink.txt
+Output:
+hardlink.txt remains accessible and still contains the file contents
+symlink.txt becomes broken because its target path no longer exists
+Observation: Deleting the original file does not affect the hard link, but it breaks the symbolic link.
+
+4. Metadata collected using Linux utilities
+Command: stat original.txt hardlink.txt symlink.txt
+Output:
+The metadata shows regular file type for original and hard link, and symbolic link type for symlink.txt.
+Observation: The stat output confirms the difference in file type and link behavior.
+
+5. Conclusions
+Observation: Hard links preserve data through another directory entry, while symbolic links depend on the target path and break if the target is removed.

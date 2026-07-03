@@ -1,0 +1,6 @@
+total 12
+-rw-rw-rw- 1 codespace codespace  16 Jul  3 19:02 app.log
+-rw-rw-rw- 1 codespace codespace   0 Jul  3 19:04 combined.txt
+-rw-rw-rw- 1 codespace codespace  64 Jul  3 19:02 stderr.txt
+-rw-rw-rw- 1 codespace codespace 125 Jul  3 19:02 stdout.txt
+ls: cannot access '/not_a_real_path': No such file or directory
